@@ -23,3 +23,10 @@ class FieldTracker:
             if monster.position() == position:
                 return True
         return False
+
+    def monster_location_in_range(self, position, radius):
+        for monster in self.monsters:
+            if abs(monster.position()[0] - position[0]) < 10 and\
+               abs(monster.position()[1] - position[1]) < 10:
+                return monster.position()
+        return None

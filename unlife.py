@@ -20,7 +20,8 @@ field_tracker = FieldTracker()
 for i in range(0, 100):
     human = Human(random.randint(0, screen_width), random.randint(0, screen_height))
     field_tracker.add_human(human)
-field_tracker.add_monster(Monster(random.randint(0, screen_width), random.randint(0, screen_height)))
+for i in range(0, 25):
+    field_tracker.add_monster(Monster(random.randint(0, screen_width), random.randint(0, screen_height)))
 mover = Mover(RandomMotionGenerator(), screen_width, screen_height)
 
 while True:
@@ -38,11 +39,11 @@ while True:
     screen.fill((0, 0, 0))
     new_tracker = FieldTracker()
     for human in field_tracker.humans:
-        mover.move(human, new_tracker)
+        mover.move(human, field_tracker, new_tracker)
         screen.set_at(human.position(), (50, 205, 50))
     for monster in field_tracker.monsters:
-        mover.move(monster, new_tracker)
-        screen.set_at(human.position(), (255, 0, 0))
+        mover.move(monster, field_tracker, new_tracker)
+        screen.set_at(monster.position(), (255, 0, 0))
     field_tracker = new_tracker
     
     pygame.display.update()

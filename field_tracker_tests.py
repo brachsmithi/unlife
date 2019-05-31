@@ -38,3 +38,25 @@ class FieldTrackerTestCase(unittest.TestCase):
         tracker.add_monster(monster)
         assert tracker.occupied(monster.position())
         
+    def testMonsterLocationInRange_outsideRange(self):
+        tracker = self.tracker
+        tracker.add_monster(Monster(50, 50))
+        assert not tracker.monster_location_in_range((40, 60), 10)
+        assert not tracker.monster_location_in_range((60, 40), 10)
+        assert not tracker.monster_location_in_range((60, 60), 10)
+        assert not tracker.monster_location_in_range((40, 40), 10)
+
+    def testMonsterLocationInRange_inRange_Higher(self):
+        tracker = self.tracker
+        tracker.add_monster(Monster(30, 30))
+        assert tracker.monster_location_in_range((21, 21), 10) == (30, 30)
+        
+    def testMonsterLocationInRange_inRange_Lower(self):
+        tracker = self.tracker
+        tracker.add_monster(Monster(10, 10))
+        assert tracker.monster_location_in_range((19, 19), 10) == (10, 10)
+
+    # TODO return closest!
+        
+        
+        
