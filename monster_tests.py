@@ -14,7 +14,7 @@ class MonsterTestCase(unittest.TestCase):
         assert self.monster.y == self.y, 'wrong y position for monster'
 
     def testRadius(self):
-        assert self.monster.radius == 10, 'wrong radius for monster'
+        assert self.monster.radius == 5, 'wrong radius for monster'
 
     def testPosition(self):
         assert self.monster.position() == (self.x, self.y), 'wrong position for monster'

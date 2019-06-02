@@ -35,7 +35,7 @@ class Mover:
     def moving_toward_monster(self, entity, position, field_tracker):
         if type(entity) is Monster:
             return False
-        monster_loc = field_tracker.monster_location_in_range(entity.position(), 10)
+        monster_loc = field_tracker.monster_location_in_range(entity.position(), entity.radius)
         if not monster_loc:
             return False
         old_diff_x = abs(monster_loc[0] - entity.position()[0])
