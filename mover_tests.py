@@ -14,6 +14,11 @@ class MockRandomMotionGenerator(RandomMotionGenerator):
         new_loc = self.loc[self.i]
         self.i += 1
         return new_loc
+
+    def move_toward(self, location, goal):
+        new_loc = self.loc[self.i]
+        self.i += 1
+        return new_loc
     
 class MoverTestCase(unittest.TestCase):
 
@@ -110,6 +115,15 @@ class MoverTestCase(unittest.TestCase):
         new_tracker = FieldTracker()
         self.mover.move(self.human, self.field_tracker, new_tracker)
         assert location == self.human.position()
-        assert self.human in self.field_tracker.humans
+        assert self.human in new_tracker.humans
 
+    def testMove_monsterFollowDetectedHuman(self):
+        monster = Monster(self.x + 4, self.y - 4)
+        self.field_tracker.add_monster(monster)
+        location = (self.x + 3, self.y - 3)
+        self.generator.loc.append(location)
+        new_tracker = FieldTracker()
+        self.mover.move(monster, self.field_tracker, new_tracker)
+        assert location == monster.position()
+        assert monster in new_tracker.monsters
         

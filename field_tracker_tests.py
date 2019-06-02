@@ -56,7 +56,26 @@ class FieldTrackerTestCase(unittest.TestCase):
         tracker.add_monster(Monster(10, 10))
         assert tracker.monster_location_in_range((19, 19), 10) == (10, 10)
 
-    # TODO return closest!
+    def testHumanLocationInRange_outsideRange(self):
+        tracker = self.tracker
+        tracker.add_human(Human(50, 50))
+        assert not tracker.human_location_in_range((45, 55), 5)
+        assert not tracker.human_location_in_range((55, 45), 5)
+        assert not tracker.human_location_in_range((55, 55), 5)
+        assert not tracker.human_location_in_range((45, 45), 5)
+
+    def testHumanLocationInRange_inRange_Higher(self):
+        tracker = self.tracker
+        tracker.add_human(Human(30, 30))
+        assert tracker.human_location_in_range((26, 26), 5) == (30, 30)
+        
+    def testHumanLocationInRange_inRange_Lower(self):
+        tracker = self.tracker
+        tracker.add_human(Human(10, 10))
+        assert tracker.human_location_in_range((14, 14), 5) == (10, 10)
+
+
+        # TODO return closest!
         
         
         

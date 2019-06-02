@@ -6,7 +6,7 @@ from field_tracker import FieldTracker
 from human import Human
 from monster import Monster
 from mover import Mover
-from random_motion_generator import RandomMotionGenerator
+from motion_generator import MotionGenerator
 
 screen_width = 600
 screen_height = 400
@@ -22,7 +22,7 @@ for i in range(0, 100):
     field_tracker.add_human(human)
 for i in range(0, 25):
     field_tracker.add_monster(Monster(random.randint(0, screen_width), random.randint(0, screen_height)))
-mover = Mover(RandomMotionGenerator(), screen_width, screen_height)
+mover = Mover(MotionGenerator(), screen_width, screen_height)
 
 while True:
 

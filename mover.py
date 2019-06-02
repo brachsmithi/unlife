@@ -12,12 +12,17 @@ class Mover:
         print('Mover')
         
     def move(self, entity, old_field_tracker, new_field_tracker):
-        while True:
-            new_position = self.generator.randomLocation(entity.position())
-            if self.within_bounds(new_position) and\
-               not self.moving_toward_monster(entity, new_position, old_field_tracker) and\
-               self.available(new_position, new_field_tracker):
-                break
+        # TODO: make human tracking check location availabilityh
+        human_location = old_field_tracker.human_location_in_range(entity.position(), entity.radius)
+        if isinstance(entity, Monster) and human_location:
+            new_position = self.generator.move_toward(entity.position(), human_location)
+        else:
+            while True:
+                new_position = self.generator.randomLocation(entity.position())
+                if self.within_bounds(new_position) and\
+                   not self.moving_toward_monster(entity, new_position, old_field_tracker) and\
+                   self.available(new_position, new_field_tracker):
+                    break
         entity.x = new_position[0]
         entity.y = new_position[1]
         if isinstance(entity, Human):
@@ -43,3 +48,4 @@ class Mover:
         old_diff_y = abs(monster_loc[1] - entity.position()[1])
         new_diff_y = abs(monster_loc[1] - position[1])
         return old_diff_x >= new_diff_x and old_diff_y >= new_diff_y
+
