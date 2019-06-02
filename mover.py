@@ -20,7 +20,7 @@ class Mover:
                 break
         entity.x = new_position[0]
         entity.y = new_position[1]
-        if type(entity) is Human:
+        if isinstance(entity, Human):
             new_field_tracker.add_human(entity)
         else:
             new_field_tracker.add_monster(entity)
@@ -33,7 +33,7 @@ class Mover:
         return not field_tracker.occupied(position)
 
     def moving_toward_monster(self, entity, position, field_tracker):
-        if type(entity) is Monster:
+        if isinstance(entity, Monster):
             return False
         monster_loc = field_tracker.monster_location_in_range(entity.position(), entity.radius)
         if not monster_loc:
